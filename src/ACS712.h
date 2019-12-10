@@ -3,8 +3,7 @@
 
 #include <Arduino.h>
 
-#define ADC_SCALE 1023.0
-#define VREF 5.0
+
 #define DEFAULT_FREQUENCY 50
 
 enum ACS712_type {ACS712_05B, ACS712_20A, ACS712_30A};
@@ -15,6 +14,10 @@ public:
 	int calibrate();
 	void setZeroPoint(int _zero);
 	void setSensitivity(float sens);
+  void setVoltageReference(float volts);
+  void setAdcResolution(float adcResolution);
+
+  float getVoltage();
 	float getCurrentDC();
 	float getCurrentAC(uint16_t frequency = 50);
 
@@ -22,6 +25,8 @@ private:
 	int zero = 512;
 	float sensitivity;
 	uint8_t pin;
+  float voltageReference = 5;      // Vcc of the MCU
+  float adcScale = 1024.0;           // ADC resolution
 };
 
 #endif

@@ -34,12 +34,29 @@ void ACS712::setSensitivity(float sens) {
 	sensitivity = sens;
 }
 
+void ACS712::setVoltageReference(float volts){
+  voltageReference = volts;
+}
+
+void ACS712::setAdcResolution(float adcResolution){
+  adcScale = adcResolution;
+}
+
+float ACS712::getVoltage(){
+	int16_t acc = 0;
+	for (int i = 0; i < 10; i++) {
+		acc += analogRead(pin);
+	}  
+	float V = (float)acc / 10.0 / adcScale * voltageReference;
+	return V;
+}
+
 float ACS712::getCurrentDC() {
 	int16_t acc = 0;
 	for (int i = 0; i < 10; i++) {
 		acc += analogRead(pin) - zero;
 	}
-	float I = (float)acc / 10.0 / ADC_SCALE * VREF / sensitivity;
+	float I = (float)acc / 10.0 / adcScale * voltageReference / sensitivity;
 	return I;
 }
 
@@ -56,6 +73,6 @@ float ACS712::getCurrentAC(uint16_t frequency) {
 		measurements_count++;
 	}
 
-	float Irms = sqrt(Isum / measurements_count) / ADC_SCALE * VREF / sensitivity;
+	float Irms = sqrt(Isum / measurements_count) / adcScale * voltageReference / sensitivity;
 	return Irms;
 }

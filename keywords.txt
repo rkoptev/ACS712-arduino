@@ -16,6 +16,9 @@ ACS712_type	KEYWORD1
 calibrate	KEYWORD2
 setZeroPoint	KEYWORD2
 setSensitivity	KEYWORD2
+setVoltageReference	KEYWORD2
+setAdcResolution	KEYWORD2
+getVoltage	KEYWORD2
 getCurrentDC	KEYWORD2
 getCurrentAC	KEYWORD2
 
